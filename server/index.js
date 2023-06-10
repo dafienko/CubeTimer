@@ -4,6 +4,7 @@ const express = require('express');
 const PORT = 9000;
 const app = express();
 
+app.use(require('cors')({origin: 'http://localhost:3000', credentials: true}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
  

@@ -16,6 +16,9 @@ module.exports = function(app) {
 		secret: 'secret',
 		resave: false,
 		saveUninitialized: false,
+		cookie: {
+			httpOnly: false,
+		},
 		store: sessionStore
 	}));
 
@@ -24,6 +27,7 @@ module.exports = function(app) {
 	});
 	
 	passport.serializeUser(async function (user, done) {
+		console.log('serialize');
 		done(null, user._id);
 	}); 
 

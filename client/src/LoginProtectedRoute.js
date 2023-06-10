@@ -1,8 +1,8 @@
 import { useCookies } from 'react-cookie';
-import { Route, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 const LoginProtectedRoute = ({shouldBeLoggedIn, children}) => {
-	const [cookies, setCookie, removeCookie] = useCookies(['connect.sid']);
+	const [cookies] = useCookies(['connect.sid']);
 
 	return (
 		shouldBeLoggedIn ? 

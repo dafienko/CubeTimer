@@ -46,6 +46,10 @@ input {
 	border-color: #777777;
 }
 
+input:invalid {
+	border-color: #FF0000;
+}
+
 .submitButton {
 	width: 50%;  
 	color: white;

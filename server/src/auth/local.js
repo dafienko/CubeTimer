@@ -6,15 +6,19 @@ const User = require('../User');
 
 passport.use(new LocalStrategy(
 	async function(username, password, done) {
+		console.log(username, password);
 		const user = await User.findOne({username});
 		if (!user) {
+			console.log('1');
 			return done(null);
 		}
 
 		if (!verifyPassword(password, user.salt, user.password)) {
+			console.log('2');
 			return done(null);
 		}
 
+		console.log('3');
 		return done(null, user);
 	}
 ));
@@ -27,13 +31,12 @@ function verifyPassword(password, salt, hash) {
 
 const checkAuth = passport.authenticate('local', { 
 	session: true,
-	successRedirect : '/',
-	failureRedirect : '/loginfail'
+	failureRedirect : 'http://localhost:3000/login'
 });
 
 module.exports = function(app) {
 	app.post('/auth/basic/login', checkAuth, (req, res) => {
-		res.redirect('/');
+		res.send();
 	});
 
 	app.post('/auth/basic', async (req, res) => {
@@ -52,11 +55,7 @@ module.exports = function(app) {
 		await new User({username, password, name: username, salt}).save();
 		
 		checkAuth(req, res, function() {
-			res.redirect('/');
+			res.send();
 		})
 	});
-
-	app.get('/loginfail', (req, res) => {
-		res.send('<h1>login failed</h1><a href="/login.html">back</a>');
-	})
 }
