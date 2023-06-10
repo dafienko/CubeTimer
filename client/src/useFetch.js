@@ -3,7 +3,7 @@ import {useState, useEffect} from 'react'
 const useFetch = (resource, options) => {
 	options = options || {};
 
-	const [response, setResponse] = useState(null);
+	const [data, setResponse] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 	
@@ -12,7 +12,11 @@ const useFetch = (resource, options) => {
 		options.signal = controller.signal;
 
 		fetch(resource, options).then((response) => {
-			setResponse(response);
+			if (response.ok) {
+				return response.json();
+			}
+		}).then((d) => {
+			setResponse(d);
 		}).catch((err) => {
 			setError(err);
 		}).finally(() => {
@@ -22,10 +26,10 @@ const useFetch = (resource, options) => {
 		return () => {
 			controller.abort();
 		};
-	}, []);
+	}, [resource]);
 
 	return {
-		response, 
+		data, 
 		loading, 
 		error
 	};

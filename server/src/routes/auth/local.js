@@ -2,23 +2,20 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const crypto = require('crypto');
 const pbkdf2 = require('pbkdf2');
-const User = require('../User');
+const User = require('../../models/User');
 
 passport.use(new LocalStrategy(
 	async function(username, password, done) {
 		console.log(username, password);
 		const user = await User.findOne({username});
 		if (!user) {
-			console.log('1');
 			return done(null);
 		}
 
 		if (!verifyPassword(password, user.salt, user.password)) {
-			console.log('2');
 			return done(null);
 		}
 
-		console.log('3');
 		return done(null, user);
 	}
 ));

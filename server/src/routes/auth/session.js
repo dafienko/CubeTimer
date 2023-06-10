@@ -3,7 +3,7 @@ const passport = require('passport');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 
-const User = require('../User');
+const User = require('../../models/User');
 
 const sessionStore = new MongoDBStore({
 	uri: process.env.SESSION_URI,
@@ -27,7 +27,6 @@ module.exports = function(app) {
 	});
 	
 	passport.serializeUser(async function (user, done) {
-		console.log('serialize');
 		done(null, user._id);
 	}); 
 
@@ -35,13 +34,20 @@ module.exports = function(app) {
 		done(null, await User.findById(id));
 	});
 
+	app.use(passport.initialize());
+	app.use(passport.session());
+	
 	const checkSignedIn = (req, res, next) => {
 		if (!req.user) {
-			return res.status(401);
+			return res.status(401).send();
 		} else {
 			return next();
 		}
 	};
+
+	app.get('/validSession', checkSignedIn, (req, res) => {
+		return res.status(200).send();
+	})
 	
 	app.get('/logout', checkSignedIn, function(req, res, next) {
 		req.logout(function(err) {
@@ -49,10 +55,7 @@ module.exports = function(app) {
 			
 			req.session.destroy();
 	
-			res.status('Successfully logged out');
+			res.send('logged out');
 		});
 	})
-
-	app.use(passport.initialize());
-	app.use(passport.session());
 }
