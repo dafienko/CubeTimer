@@ -14,6 +14,7 @@ const Login = () => {
 						<input type="password" placeholder="Password" name="password"></input>
 						<input class="submitButton" type="submit" value="Sign In"></input>
 					</Form>
+					<p>or</p>
 					<button class="oauthButton">
 						<img class="oauthIcon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
 						<p>Sign in with Google</p>
@@ -24,13 +25,22 @@ const Login = () => {
 					</button>
 				</div>
 				<div class="loginOption">
-					<h2>Create Account</h2>
+					<h2>Sign Up</h2>
 					<Form autoComplete="false">
 						<input type="text" placeholder="Username" name="username"></input>
 						<input type="password" placeholder="Password" name="password"></input>
 						<input type="password" placeholder="Confirm Password" name="confirm-password"></input>
 						<input class="submitButton" type="submit" value="Sign Up"></input>
 					</Form>
+					<p>or</p>
+					<button class="oauthButton">
+						<img class="oauthIcon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
+						<p>Sign up with Google</p>
+					</button>
+					<button class="oauthButton">
+						<img class="oauthIcon" src="./github-mark.svg"/>
+						<p>Sign up with GitHub</p>
+					</button>
 				</div>
 			</div>
 		</LoginProtectedRoute>

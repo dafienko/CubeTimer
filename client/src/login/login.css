@@ -1,15 +1,18 @@
 body {
 	margin: 0px;
+	font-family: 'Roboto', sans-serif;
 }
 
 #login {
+	margin-top: 10%;
 	display: flex;
 	height: 100vh;
-	align-items: center;
+	align-items: top;
 	justify-content: space-evenly;
 }
 
 .loginOption {
+	min-width: 300px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -19,6 +22,9 @@ h2 {
 	font-family: 'Roboto', sans-serif;
 	font-weight: 700;
 	font-size: 50px;
+	color: rgb(37, 37, 37);
+	margin-top: 0px;
+	margin-bottom: 35px;
 }
 
 form {
@@ -29,7 +35,7 @@ form {
 }
 
 input {
-	width: 100%;
+	display: block;
 	padding: 8px;
 	margin: 5px;
 	font-family: 'Roboto', sans-serif;
@@ -41,8 +47,13 @@ input {
 }
 
 .submitButton {
-	width: 50%;
-	background-color: black;
+	width: 50%;  
+	color: white;
+	background-color: rgb(37, 37, 37);
+	font-weight: 700;
+	padding: 10px;
+	cursor: pointer;
+	margin-top: 30px;
 }
 
 .oauthButton {
@@ -61,6 +72,11 @@ input {
 	transition: all 170ms ease;
 }
 
+p {
+	color: rgb(154, 154, 154);
+	margin: 40px;
+}
+
 .oauthButton:hover {
 	box-shadow: 0px 3px 9px rgba(0, 0, 0, 0.5);
 }
@@ -75,4 +91,5 @@ input {
 	font-family: 'Roboto', sans-serif;
 	font-weight: 700;
 	color: #777777;
+	white-space: nowrap;
 }
