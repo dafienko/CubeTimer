@@ -11,14 +11,14 @@ body {
 	justify-content: space-evenly;
 }
 
-.loginOption {
+#login .loginOption {
 	min-width: 300px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 }
 
-h2 {
+#login h2 {
 	font-family: 'Roboto', sans-serif;
 	font-weight: 700;
 	font-size: 50px;
@@ -27,14 +27,14 @@ h2 {
 	margin-bottom: 35px;
 }
 
-form {
+#login form {
 	width: 100%;
 	display: flex;
 	align-items: center;
 	flex-direction: column;
 }
 
-input {
+#login input {
 	display: block;
 	padding: 8px;
 	margin: 5px;
@@ -46,11 +46,11 @@ input {
 	border-color: #777777;
 }
 
-input:invalid {
+#login input:invalid {
 	border-color: #FF0000;
 }
 
-.submitButton {
+#login .submitButton {
 	width: 50%;  
 	color: white;
 	background-color: rgb(37, 37, 37);
@@ -60,7 +60,7 @@ input:invalid {
 	margin-top: 30px;
 }
 
-.oauthButton {
+#login .oauthButton {
 	display: flex;
 	align-items: center;
 	gap: 20px;
@@ -76,20 +76,20 @@ input:invalid {
 	transition: all 170ms ease;
 }
 
-p {
+#login p {
 	color: rgb(154, 154, 154);
 	margin: 40px;
 }
 
-.oauthButton:hover {
+#login .oauthButton:hover {
 	box-shadow: 0px 3px 9px rgba(0, 0, 0, 0.5);
 }
 
-.oauthButton img {
+#login .oauthButton img {
 	height: 26px;
 }
 
-.oauthButton p {
+#login .oauthButton p {
 	font-size: 20px;
 	margin: 0px;
 	font-family: 'Roboto', sans-serif;
