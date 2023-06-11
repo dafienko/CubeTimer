@@ -26,6 +26,11 @@ const userSchema = new Schema({
 		default: Date.now 
 	},
 
+	solves: [{
+		_id: false,
+		time: Number
+	}],
+
 	provider: String,
 	providerId: String,
 

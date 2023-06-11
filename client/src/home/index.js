@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 
 import LoginProtectedRoute from "../LoginProtectedRoute";
 import useFetch from '../useFetch';
@@ -8,40 +8,60 @@ import {LineChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Line, Responsiv
 
 import './home.css'
 
-const Home = () => {
-	const {data, loading, error} = useFetch('http://localhost:9000/me', {credentials: 'include'});
+const Home = (props) => {
+	const SHOW_NUM_SOLVES = 100;
 
-	const [lineData, setLineData] = useState([
-		{name: 'A', uv: 12, pv: 1},
-		{name: 'B', uv: 13, pv: 10},
-		{name: 'C', uv: 14, pv: 5},
-		{name: 'D', uv: 15, pv: 8},
-		{name: 'E', uv: 16, pv: 20},
-	]);
+	const {data: userdata, userdataLoading, userdataError} = useFetch('http://localhost:9000/me', {credentials: 'include'});
+	const [solveURL, setSolveURL] = useState();
+	const {data: solvedata, solvedataLoading, solvedataError} = useFetch(solveURL, {credentials: 'include'});
+	const [lineData, setLineData] = useState([]);
+
+	useEffect(() => {
+		if (userdata) {
+			setSolveURL(`http://localhost:9000/solves/${userdata.id}?num=${SHOW_NUM_SOLVES}`);
+		}
+	}, [userdata]);
+
+	useEffect(() => {
+		if (solvedata) {
+			const newdata = solvedata.map(d => {return {time: d.time}});
+			
+			setLineData(newdata);
+		}
+	}, [solvedata]);
+
 
 	const onClick = () => {
-		console.log('fart');
-		
-		const newData = lineData.slice(1);
-		newData.push({uv: Math.random() * 20, pv: Math.random() * 20});
-		// console.log(newData);
-		setLineData(newData);
-	}
+		const newData = lineData.slice(lineData.length >= SHOW_NUM_SOLVES ? 1 : 0);
 
-	console.log(lineData);
+		const t = Math.random() * 20;
+		
+		newData.push({time: t});
+		setLineData(newData);
+
+		fetch(`http://localhost:9000/solves/${userdata.id}`, {
+			method: 'POST',
+			credentials: 'include',
+			headers: {
+				'content-type': 'application/json'
+			},
+			body: JSON.stringify({
+				time: t
+			})
+		});
+	}
 
 	return ( 
 		<LoginProtectedRoute shouldBeLoggedIn={true}>
 			<div id='home'>
-				{data 
+				{userdata 
 				? 
 				<>
 					<button onClick={onClick} style={{'zIndex': 10}}>test</button>
 					<div id='chart'>
 						<ResponsiveContainer width='95%' height='60%'>
 							<LineChart width={730} height={250} data={lineData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-								<Line type="monotone" dataKey="pv" stroke="#8884d8" isAnimationActive={false} dot={true}/>
-								<Line type="monotone" dataKey="uv" stroke="#82ca9d" isAnimationActive={false} dot={true}/>
+								<Line type="monotone" dataKey="time" stroke="#8884d8" isAnimationActive={false} dot={true}/>
 							</LineChart>
 						</ResponsiveContainer>
 					</div>
@@ -58,7 +78,7 @@ const Home = () => {
 					</div>
 
 					<div id='user-info'>
-						<p>Logged in as <b>{data.name}</b></p>
+						<p>Logged in as <b>{userdata.name}</b></p>
 						<a href='/settings'>Settings</a>
 						<Logout/>
 					</div>

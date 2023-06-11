@@ -8,6 +8,10 @@ const useFetch = (resource, options) => {
 	const [error, setError] = useState(null);
 	
 	useEffect(() => {
+		if (!resource) {
+			return;
+		}
+		
 		const controller = new AbortController();
 		options.signal = controller.signal;
 
