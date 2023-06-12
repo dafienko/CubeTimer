@@ -1,14 +1,13 @@
-import {useState, useEffect} from 'react';
-
+import {useState, useEffect, useContext} from 'react';
 import LoginProtectedRoute from "../LoginProtectedRoute";
-import useFetch from '../useFetch';
-import Logout from '../Logout';
-
 import {LineChart, Line, ResponsiveContainer} from 'recharts';
 
-import './home.css'
+import useFetch from '../hooks/useFetchJSON';
+import Logout from '../Logout';
 import Scramble from './Scramble';
 import Timer from './Timer';
+import {UserContext} from '../User';
+import './home.css'
 
 function getAO(data, n) {
 	if (n > data.length) {
@@ -29,7 +28,8 @@ function getAO(data, n) {
 
 const Home = ({}) => {
 	const SHOW_NUM_SOLVES = 50;
-	const {data: userdata, userdataLoading, userdataError} = useFetch('http://localhost:9000/me', {credentials: 'include'});
+	
+	const userdata = useContext(UserContext);
 	const [solveURL, setSolveURL] = useState();
 	const {data: solvedata, solvedataLoading, solvedataError} = useFetch(solveURL, {credentials: 'include'});
 	const [lineData, setLineData] = useState([]);

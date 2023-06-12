@@ -1,0 +1,14 @@
+body {
+	margin: 0px;
+	font-family: 'Roboto', sans-serif;
+}
+
+#loading {
+	width: 100%;
+	text-align: center;
+	font-size: 40px;
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+}

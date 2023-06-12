@@ -3,12 +3,13 @@ import {useState, useEffect} from 'react'
 const useFetch = (resource, options) => {
 	options = options || {};
 
-	const [data, setResponse] = useState(null);
+	const [response, setResponse] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 	
 	useEffect(() => {
 		if (!resource) {
+			setResponse(null);
 			return;
 		}
 		
@@ -16,11 +17,7 @@ const useFetch = (resource, options) => {
 		options.signal = controller.signal;
 
 		fetch(resource, options).then((response) => {
-			if (response.ok) {
-				return response.json();
-			}
-		}).then((d) => {
-			setResponse(d);
+			setResponse(response);
 		}).catch((err) => {
 			setError(err);
 		}).finally(() => {
@@ -28,12 +25,14 @@ const useFetch = (resource, options) => {
 		});
 
 		return () => {
+			setLoading(false);
+			setError(null);
 			controller.abort();
 		};
-	}, [resource]);
+	}, [resource]); 
 
 	return {
-		data, 
+		response, 
 		loading, 
 		error
 	};

@@ -1,23 +1,15 @@
-import { useCookies } from 'react-cookie';
 import { Navigate } from 'react-router-dom';
-import { useState, useEffect} from 'react';
-import useFetch from './useFetch';
+import { useContext } from 'react';
+
+import {UserContext} from './User'
 
 const LoginProtectedRoute = ({shouldBeLoggedIn, children}) => {
-	const [cookies, setCookie, removeCookie] = useCookies(['connect.sid']);
-
-	if (cookies['connect.sid']) {
-		fetch('http://localhost:9000/validSession', {credentials: 'include'}).then((response) => {
-			if (!response.ok) {
-				removeCookie('connect.sid');
-			}
-		});
-	}
+	const user = useContext(UserContext);
 
 	return (
 		shouldBeLoggedIn ? 
-		(cookies["connect.sid"] ? children : <Navigate to="/login"/>) :
-		(!cookies["connect.sid"] ? children : <Navigate to="/"/>)
+			(user ? children : <Navigate to="/login"/>) :
+			(!user ? children : <Navigate to="/"/>)
 	);
 }
  
