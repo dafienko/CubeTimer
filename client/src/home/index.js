@@ -7,14 +7,35 @@ import Logout from '../Logout';
 import {LineChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Line, ResponsiveContainer} from 'recharts';
 
 import './home.css'
+import Scramble from './Scramble';
+import Timer from './Timer';
 
-const Home = (props) => {
+function getAO(data, n) {
+	if (n > data.length) {
+		return '-';
+	}
+
+	data = data.slice(data.length - n, data.length);
+	let best = data[0];
+	let worst = data[0];
+	const sum = data.reduce((partial, item) => {
+		best = Math.min(best, item);
+		worst = Math.max(worst, item);
+		return partial + item;
+	}, 0);
+
+	return ((sum - (best + worst)) / (n-2)).toFixed(2).toString();
+}
+
+const Home = () => {
 	const SHOW_NUM_SOLVES = 100;
 
 	const {data: userdata, userdataLoading, userdataError} = useFetch('http://localhost:9000/me', {credentials: 'include'});
 	const [solveURL, setSolveURL] = useState();
 	const {data: solvedata, solvedataLoading, solvedataError} = useFetch(solveURL, {credentials: 'include'});
 	const [lineData, setLineData] = useState([]);
+	const [ao5, setAO5] = useState('-');
+	const [ao12, setAO12] = useState('-');
 
 	useEffect(() => {
 		if (userdata) {
@@ -25,16 +46,18 @@ const Home = (props) => {
 	useEffect(() => {
 		if (solvedata) {
 			const newdata = solvedata.map(d => {return {time: d.time}});
-			
 			setLineData(newdata);
 		}
 	}, [solvedata]);
 
+	useEffect(() => {
+		const data = lineData.map(d => d.time);
+		setAO5(getAO(data, 5));
+		setAO12(getAO(data, 12));
+	}, [lineData])
 
-	const onClick = () => {
+	const onTimerStop = (t) => {
 		const newData = lineData.slice(lineData.length >= SHOW_NUM_SOLVES ? 1 : 0);
-
-		const t = Math.random() * 20;
 		
 		newData.push({time: t});
 		setLineData(newData);
@@ -57,7 +80,6 @@ const Home = (props) => {
 				{userdata 
 				? 
 				<>
-					<button onClick={onClick} style={{'zIndex': 10}}>test</button>
 					<div id='chart'>
 						<ResponsiveContainer width='95%' height='60%'>
 							<LineChart width={730} height={250} data={lineData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
@@ -65,17 +87,10 @@ const Home = (props) => {
 							</LineChart>
 						</ResponsiveContainer>
 					</div>
-					<div id='scramble-info'>
-						<button class='scramble-control'>&lt;</button>
-						<h2 id='scramble'>L' B L F R2 F2 D2 L D' B2 U2 F2 R2 U' B2 U2 B2 U L2</h2>
-						<button class='scramble-control'>&gt;</button>
-					</div>
+					
+					<Scramble />
 
-					<div id='time'>
-						<h3 id='timer'>0.00</h3>
-						<p id='ao5' class='ao'>AO5: 0.00</p>
-						<p id='ao12' class='ao'>AO12: 0.00</p>
-					</div>
+					<Timer onTimerStop={onTimerStop} ao5={ao5} ao12={ao12} />
 
 					<div id='user-info'>
 						<p>Logged in as <b>{userdata.name}</b></p>
