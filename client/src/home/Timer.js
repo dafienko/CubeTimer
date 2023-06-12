@@ -124,8 +124,8 @@ const Timer = ({onTimerStop, ao5, ao12}) => {
 	return (
 		<div id='time'>
 			<h3 id='timer' style={{color}}>{timeText}</h3>
-			<p id='ao5' class='ao'>AO5: {ao5}</p>
-			<p id='ao12' class='ao'>AO12: {ao12}</p>
+			<p id='ao5' className='ao'>AO5: {ao5}</p>
+			<p id='ao12' className='ao'>AO12: {ao12}</p>
 		</div>
 	);
 }

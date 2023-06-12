@@ -1,0 +1,52 @@
+
+
+#profile {
+	display: flex;
+	height: 100vh;
+}
+
+#profile #banner {
+	background-color: var(--secondary-color);
+	min-width: 250px;
+}
+
+#profile #banner #header {
+	width: 100%;
+	padding: 20px;
+}
+
+#profile #home-link {
+	color: var(--primary-color);
+	font-size: 60px;
+	text-decoration: none;
+	font-weight: 700;
+	margin-right: 40px;
+}
+
+#profile p {
+	color: var(--primary-color);
+	font-weight: 400;
+	font-size: 30px;
+}
+
+#profile .tab {
+	display: block;
+	width: 100%;
+	padding-left: 20px;
+	text-decoration: none;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	font-size: 20px;
+	color: var(--primary-color);
+	transition: all ease 130ms;
+}
+
+#profile .tab[current='true'] {
+	color: var(--secondary-color);
+	background-color: var(--primary-color);
+	font-weight: 700;
+}
+
+#profile #content {
+	padding: 20px;
+}

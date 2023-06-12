@@ -1,3 +1,10 @@
+:root {
+	--primary-color: white;
+	--secondary-color: rgb(255, 43, 43);
+	--primary-text-color: black;
+	--secondary-text-color: rgb(85, 85, 85);
+}
+
 body {
 	margin: 0px;
 	font-family: 'Roboto', sans-serif;

@@ -2,10 +2,8 @@ import {useState, useEffect} from 'react';
 
 import generateScramble from '../generateScramble';
 
-const Scramble = () => {
+const Scramble = ({scramble, setScramble, scrambleIndex, setScrambleIndex}) => {
 	const [scrambles, setScrambles] = useState([]);
-	const [scrambleIndex, setScrambleIndex] = useState(0);
-	const [scramble, setScramble] = useState('');
 
 	useEffect(() => {
 		if (scrambleIndex >= scrambles.length) {
@@ -35,9 +33,9 @@ const Scramble = () => {
 
 	return (
 		<div id='scramble-info'>
-			<button class='scramble-control' onClick={onLastScramble}>&lt;</button>
+			<button className='scramble-control' onClick={onLastScramble}>&lt;</button>
 			<h2 id='scramble'>{scramble}</h2>
-			<button class='scramble-control' onClick={onNextScramble}>&gt;</button>
+			<button className='scramble-control' onClick={onNextScramble}>&gt;</button>
 		</div>
 	);
 };

@@ -1,7 +1,7 @@
-import LoginProtectedRoute from '../LoginProtectedRoute';
 import { useState, useEffect } from 'react';
 import { Form } from 'react-bootstrap'
 
+import LoginProtectedRoute from '../LoginProtectedRoute';
 import useFetch from '../hooks/useFetchJSON';
 import './login.css';
 
@@ -78,38 +78,38 @@ const Login = () => {
 	return (
 		<LoginProtectedRoute shouldBeLoggedIn={false}>
 			<div id='login'>
-				<div class='loginOption'>
+				<div className='loginOption'>
 					<h2>Sign In</h2>
 					<Form id='loginForm' onSubmit={login} autoComplete='false' >
 						<input type='text' placeholder='Username' name='username'></input>
 						<input type='password' placeholder='Password' name='password'></input>
-						<input class='submitButton' type='submit' value={loading ? 'Loading' : 'Sign In'}></input>
+						<input className='submitButton' type='submit' value={loading ? 'Loading' : 'Sign In'}></input>
 					</Form>
 					<p>or</p>
-					<button class='oauthButton' onClick={googleAuth}>
-						<img alt='' class='oauthIcon' src='https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg'/>
+					<button className='oauthButton' onClick={googleAuth}>
+						<img alt='' className='oauthIcon' src='https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg'/>
 						<p>Sign in with Google</p>
 					</button>
-					<button class='oauthButton' onClick={githubAuth}>
-						<img alt='' class='oauthIcon' src='./github-mark.svg'/>
+					<button className='oauthButton' onClick={githubAuth}>
+						<img alt='' className='oauthIcon' src='./github-mark.svg'/>
 						<p>Sign in with GitHub</p>
 					</button>
 				</div>
-				<div class='loginOption'>
+				<div className='loginOption'>
 					<h2>Sign Up</h2>
 					<Form id='signupForm' autoComplete='false' onSubmit={signup} onChange={onSignupFormChange}>
 						<input type='text' placeholder='Username' name='username'></input>
 						<input type='password' placeholder='Password' name='password'></input>
 						<input type='password' placeholder='Confirm Password' name='confirm-password' id='confirm-password'></input>
-						<input class='submitButton' type='submit' value={loading ? 'Loading' : 'Sign Up'}></input>
+						<input className='submitButton' type='submit' value={loading ? 'Loading' : 'Sign Up'}></input>
 					</Form>
 					<p>or</p>
-					<button class='oauthButton' onClick={googleAuth}>
-						<img alt='' class='oauthIcon' src='https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg'/>
+					<button className='oauthButton' onClick={googleAuth}>
+						<img alt='' className='oauthIcon' src='https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg'/>
 						<p>Sign up with Google</p>
 					</button>
-					<button class='oauthButton' onClick={githubAuth}>
-						<img alt='' class='oauthIcon' src='./github-mark.svg'/>
+					<button className='oauthButton' onClick={githubAuth}>
+						<img alt='' className='oauthIcon' src='./github-mark.svg'/>
 						<p>Sign up with GitHub</p>
 					</button>
 				</div>

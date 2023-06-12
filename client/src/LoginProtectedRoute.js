@@ -1,15 +1,15 @@
 import { Navigate } from 'react-router-dom';
 import { useContext } from 'react';
 
-import {UserContext} from './User'
+import { UserContext } from './User'
 
 const LoginProtectedRoute = ({shouldBeLoggedIn, children}) => {
-	const user = useContext(UserContext);
+	const userdata = useContext(UserContext);
 
 	return (
 		shouldBeLoggedIn ? 
-			(user ? children : <Navigate to="/login"/>) :
-			(!user ? children : <Navigate to="/"/>)
+			(userdata ? children : <Navigate to="/login"/>) :
+			(!userdata ? children : <Navigate to="/"/>)
 	);
 }
  

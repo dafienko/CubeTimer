@@ -8,6 +8,7 @@ import Scramble from './Scramble';
 import Timer from './Timer';
 import {UserContext} from '../User';
 import './home.css'
+import { Link } from 'react-router-dom';
 
 function getAO(data, n) {
 	if (n > data.length) {
@@ -33,8 +34,12 @@ const Home = ({}) => {
 	const [solveURL, setSolveURL] = useState();
 	const {data: solvedata, solvedataLoading, solvedataError} = useFetch(solveURL, {credentials: 'include'});
 	const [lineData, setLineData] = useState([]);
+	
 	const [ao5, setAO5] = useState('-');
 	const [ao12, setAO12] = useState('-');
+
+	const [scrambleIndex, setScrambleIndex] = useState(0);
+	const [scramble, setScramble] = useState('');
 
 	useEffect(() => {
 		if (userdata) {
@@ -71,35 +76,31 @@ const Home = ({}) => {
 				time: t
 			})
 		});
+
+		setScrambleIndex(scrambleIndex + 1);
 	}
 
 	return ( 
 		<LoginProtectedRoute shouldBeLoggedIn={true}>
-			<div id='home'>
-				{userdata 
-				? 
-				<>
-					<div id='chart'>
-						<ResponsiveContainer width='95%' height='60%'>
-							<LineChart data={lineData} margin={{ top: 20, right: 20, left: 20, bottom: 20 }}>
-								<Line type="monotone" dataKey="time" stroke="#8884d8" isAnimationActive={false} dot={true}/>
-							</LineChart>
-						</ResponsiveContainer>
-					</div>
-					
-					<Scramble />
+			{userdata && <div id='home'>
+				<div id='chart'>
+					<ResponsiveContainer width='95%' height='60%'>
+						<LineChart data={lineData} margin={{ top: 20, right: 20, left: 20, bottom: 20 }}>
+							<Line type="monotone" dataKey="time" stroke='var(--secondary-color)' isAnimationActive={false} dot={true}/>
+						</LineChart>
+					</ResponsiveContainer>
+				</div>
+				
+				<Scramble scramble={scramble} scrambleIndex={scrambleIndex} setScramble={setScramble} setScrambleIndex={setScrambleIndex} />
 
-					<Timer onTimerStop={onTimerStop} ao5={ao5} ao12={ao12} />
+				<Timer onTimerStop={onTimerStop} ao5={ao5} ao12={ao12} />
 
-					<div id='user-info'>
-						<p>Logged in as <b>{userdata.name}</b></p>
-						<a href='/profile'>Profile</a>
-						<Logout/>
-					</div>
-				</>
-				:
-				<p>loading</p>
-}			</div>
+				<div id='user-info'>
+					<p>Logged in as <b>{userdata.name}</b></p>
+					<Link to='/profile'>Profile</Link>
+					<Logout/>
+				</div>
+			</div>}
 		</LoginProtectedRoute>
 	);
 }

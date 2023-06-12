@@ -1,11 +1,13 @@
 import { CookiesProvider } from 'react-cookie';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Login from './login';
 import Home from './home';
 import Profile from './profile';
 import { UserProvider } from './User';
 
 import './index.css';
+import Settings from './profile/settings';
+import Solves from './profile/solves';
 
 function App() {
   return (
@@ -17,7 +19,11 @@ function App() {
               <Routes>
                 <Route path="/login" element={ <Login/> } />
                 <Route path="/" element={ <Home /> } />
-                <Route path="/profile" element={ <Profile /> } />
+                <Route path="/profile" element={ <Profile /> }>
+                  <Route index element={<Navigate to="/profile/solves" />} />
+                  <Route path="/profile/solves" element={ <Solves /> }/>
+                  <Route path="/profile/settings" element={ <Settings /> }/>
+                </Route>
               </Routes>
             </div>
           </div>
