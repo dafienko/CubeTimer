@@ -2,6 +2,7 @@ import { CookiesProvider } from 'react-cookie';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './login';
 import Home from './home';
+import Profile from './profile';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
             <Routes>
               <Route path="/login" element={ <Login/> } />
               <Route path="/" element={ <Home /> } />
+              <Route path="/profile" element={ <Profile /> } />
             </Routes>
           </div>
         </div>

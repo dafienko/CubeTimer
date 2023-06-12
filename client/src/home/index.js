@@ -4,7 +4,7 @@ import LoginProtectedRoute from "../LoginProtectedRoute";
 import useFetch from '../useFetch';
 import Logout from '../Logout';
 
-import {LineChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Line, ResponsiveContainer} from 'recharts';
+import {LineChart, Line, ResponsiveContainer} from 'recharts';
 
 import './home.css'
 import Scramble from './Scramble';
@@ -27,9 +27,8 @@ function getAO(data, n) {
 	return ((sum - (best + worst)) / (n-2)).toFixed(2).toString();
 }
 
-const Home = () => {
-	const SHOW_NUM_SOLVES = 100;
-
+const Home = ({}) => {
+	const SHOW_NUM_SOLVES = 50;
 	const {data: userdata, userdataLoading, userdataError} = useFetch('http://localhost:9000/me', {credentials: 'include'});
 	const [solveURL, setSolveURL] = useState();
 	const {data: solvedata, solvedataLoading, solvedataError} = useFetch(solveURL, {credentials: 'include'});
@@ -82,7 +81,7 @@ const Home = () => {
 				<>
 					<div id='chart'>
 						<ResponsiveContainer width='95%' height='60%'>
-							<LineChart width={730} height={250} data={lineData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+							<LineChart data={lineData} margin={{ top: 20, right: 20, left: 20, bottom: 20 }}>
 								<Line type="monotone" dataKey="time" stroke="#8884d8" isAnimationActive={false} dot={true}/>
 							</LineChart>
 						</ResponsiveContainer>
@@ -94,7 +93,7 @@ const Home = () => {
 
 					<div id='user-info'>
 						<p>Logged in as <b>{userdata.name}</b></p>
-						<a href='/settings'>Settings</a>
+						<a href='/profile'>Profile</a>
 						<Logout/>
 					</div>
 				</>

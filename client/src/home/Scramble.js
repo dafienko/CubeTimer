@@ -21,11 +21,15 @@ const Scramble = () => {
 		}
 	}, [scrambleIndex, scrambles]);
 
-	const onNextScramble = () => {
+	const onNextScramble = (e) => {
+		e.target.blur();
+		
 		setScrambleIndex(scrambleIndex + 1);
 	}
 
-	const onLastScramble = () => {
+	const onLastScramble = (e) => {
+		e.target.blur();
+
 		setScrambleIndex(Math.max(0, scrambleIndex - 1));
 	}
 
