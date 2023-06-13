@@ -2,15 +2,21 @@ import {useState, useEffect} from 'react'
 import useFetch from './useFetch';
 
 const useFetchJSON = (resource, options) => {
-	const [data, setData] = useState(null);
-	const [loading, setLoading] = useState(true);
 	const {response, loading: responseLoading, error} = useFetch(resource, options);
+	const [data, setData] = useState(null);
+	const [loading, setLoading] = useState(responseLoading);
 
 	useEffect(() => {
 		if (responseLoading) {
 			setLoading(true);
 		}
-	}, [responseLoading])
+	}, [responseLoading]);
+
+	useEffect(() => {
+		if (!resource) {
+			setLoading(false);
+		}
+	}, [resource]);
 
 	useEffect(() => {
 		if (response && response.ok) {

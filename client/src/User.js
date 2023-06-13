@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext, createContext} from 'react';
+import React, {useState, useEffect, createContext} from 'react';
 import { useCookies } from 'react-cookie';
 
 import useFetchJSON from './hooks/useFetchJSON';
@@ -10,12 +10,13 @@ const VALID_SESSION_URL = 'http://localhost:9000/validSession';
 const ME_URL = 'http://localhost:9000/me';
 
 const UserProvider = ({children}) => {
-	const [cookies, _, removeCookie] = useCookies(['connect.sid']);
+	const [cookies, , removeCookie] = useCookies(['connect.sid']);
+	const [validSessionURL, setValidSessionURL] = useState(cookies['connect.sid'] && VALID_SESSION_URL);
 	const [meURL, setMeURL] = useState(null);
-	const [validSessionURL, setValidSessionURL] = useState(null);
+	
+	const {response: validSessionResponse, loading: validSessionLoading} = useFetch(validSessionURL, {credentials: 'include'});
+	const {data: userdata, loading: userdataLoading} = useFetchJSON(meURL, {credentials: 'include'});
 
-	const {data: userdata, loading: userdataLoading, error: userdataError} = useFetchJSON(meURL, {credentials: 'include'});
-	const {response: validSessionResponse, loading: validSessionLoading, error: validSessionError} = useFetch(validSessionURL, {credentials: 'include'});
 
 	useEffect(() => {
 		if (cookies['connect.sid']) {
@@ -23,7 +24,7 @@ const UserProvider = ({children}) => {
 		} else {
 			setValidSessionURL(null);
 		}
-	});
+	}, [cookies]);
 
 	useEffect(() => {
 		if (validSessionResponse) {
@@ -41,7 +42,7 @@ const UserProvider = ({children}) => {
 	return (
 		<UserContext.Provider value={userdata}> 
 			{
-				(validSessionLoading || userdataLoading) 
+				(validSessionLoading || userdataLoading || (cookies['connect.sid'] && !userdata)) 
 				? 
 				<div id="loading">
 					Loading

@@ -28,7 +28,8 @@ const userSchema = new Schema({
 
 	solves: [{
 		_id: false,
-		time: Number
+		time: Number,
+		scramble: String,
 	}],
 
 	provider: String,

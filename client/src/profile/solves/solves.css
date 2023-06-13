@@ -1,0 +1,46 @@
+#solves {
+	margin: 20px;
+}
+
+#solves table {
+	border-collapse: collapse;
+	border: 1px solid var(--secondary-color);
+}
+
+
+#solves table thead {
+	font-size: 24px;
+
+	background-color: var(--secondary-color);
+}
+
+#solves th {
+	color: var(--primary-color);
+	padding: 10px;
+}
+
+#solves td {
+	padding-top: 5px;
+	padding-bottom: 5px;
+	font-size: 20px;
+	text-align: center;
+}
+
+.td-i, .td-time {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.td-scramble {
+	padding-right: 20px;
+	padding-left: 20px;
+}
+
+#solves tbody tr:nth-child(even) {
+	background-color: rgba(0, 0, 0, .1);
+}
+
+#solves tbody tr:nth-child(odd) {
+	background-color: rgba(255, 255, 255, .1);
+}
+  

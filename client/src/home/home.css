@@ -89,11 +89,12 @@
 	align-items:flex-start;
 	padding-left: 10px;
 	padding-bottom: 10px;
-	justify-content: space-evenly;
+	justify-content:end;
 	height: 10vh;
 	min-height: 100px;
 }
 
 #home #user-info * {
-	margin: 0;
+	margin-top: 12px;
+	margin-bottom:0;
 }

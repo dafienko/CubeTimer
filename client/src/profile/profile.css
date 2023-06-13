@@ -1,13 +1,19 @@
-
+#profile h1 {
+	font-size: 50px;
+	color: var(--secondary-color);
+	margin-top: 10px;
+}
 
 #profile {
-	display: flex;
+	overflow: hidden;
 	height: 100vh;
 }
 
 #profile #banner {
 	background-color: var(--secondary-color);
 	min-width: 250px;
+	float: left;
+	height: 100vh;
 }
 
 #profile #banner #header {
@@ -48,5 +54,8 @@
 }
 
 #profile #content {
-	padding: 20px;
+	overflow-x:hidden;
+	overflow-y:scroll;
+	height: 100vh;
+	width: auto;
 }

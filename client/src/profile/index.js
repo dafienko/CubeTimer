@@ -19,8 +19,8 @@ const Profile = () => {
 						<p>Hello, <b>{userdata.name}</b></p>
 					</div>
 					<div id='tabs'>
-						<Link className='tab' to='/profile/solves' current={(location.pathname=='/profile/solves').toString()}>Solves</Link>
-						<Link className='tab' to='/profile/settings' current={(location.pathname=='/profile/settings').toString()}>Settings</Link>
+						<Link className='tab' to='/profile/solves' current={(location.pathname==='/profile/solves').toString()}>Solves</Link>
+						<Link className='tab' to='/profile/settings' current={(location.pathname==='/profile/settings').toString()}>Settings</Link>
 					</div>
 				</div>
 				<div id='content'>

@@ -34,7 +34,7 @@ module.exports = function(app) {
 				_id: req.user._id
 			}, 
 			{
-				$push: { solves: {time: req.body.time} } 
+				$push: { solves: {time: req.body.time, scramble: req.body.scramble} } 
 			}
 		);
 
@@ -42,7 +42,7 @@ module.exports = function(app) {
 	});
 
 	app.get('/solves/:id', checkUser, userCanAccess, (req, res) => {
-		const num = req.query.num || 20;
+		const num = req.query.num || req.user.solves.length;
 		const last = req.user.solves.length;
 		const first = Math.max(0, last - num);
 		res.json(req.user.solves.slice(first, last));

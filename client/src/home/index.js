@@ -1,8 +1,8 @@
 import {useState, useEffect, useContext} from 'react';
 import LoginProtectedRoute from "../LoginProtectedRoute";
-import {LineChart, Line, ResponsiveContainer} from 'recharts';
+import {LineChart, Line, ResponsiveContainer, Area, AreaChart} from 'recharts';
 
-import useFetch from '../hooks/useFetchJSON';
+import useFetchJSON from '../hooks/useFetchJSON';
 import Logout from '../Logout';
 import Scramble from './Scramble';
 import Timer from './Timer';
@@ -31,8 +31,7 @@ const Home = ({}) => {
 	const SHOW_NUM_SOLVES = 50;
 	
 	const userdata = useContext(UserContext);
-	const [solveURL, setSolveURL] = useState();
-	const {data: solvedata, solvedataLoading, solvedataError} = useFetch(solveURL, {credentials: 'include'});
+	const {data: solvedata, solvedataLoading, solvedataError} = useFetchJSON(userdata && `http://localhost:9000/solves/${userdata.id}?num=${SHOW_NUM_SOLVES}`, {credentials: 'include'});
 	const [lineData, setLineData] = useState([]);
 	
 	const [ao5, setAO5] = useState('-');
@@ -40,12 +39,6 @@ const Home = ({}) => {
 
 	const [scrambleIndex, setScrambleIndex] = useState(0);
 	const [scramble, setScramble] = useState('');
-
-	useEffect(() => {
-		if (userdata) {
-			setSolveURL(`http://localhost:9000/solves/${userdata.id}?num=${SHOW_NUM_SOLVES}`);
-		}
-	}, [userdata]);
 
 	useEffect(() => {
 		if (solvedata) {
@@ -73,7 +66,8 @@ const Home = ({}) => {
 				'content-type': 'application/json'
 			},
 			body: JSON.stringify({
-				time: t
+				time: t,
+				scramble: scramble
 			})
 		});
 
@@ -85,9 +79,15 @@ const Home = ({}) => {
 			{userdata && <div id='home'>
 				<div id='chart'>
 					<ResponsiveContainer width='95%' height='60%'>
-						<LineChart data={lineData} margin={{ top: 20, right: 20, left: 20, bottom: 20 }}>
-							<Line type="monotone" dataKey="time" stroke='var(--secondary-color)' isAnimationActive={false} dot={true}/>
-						</LineChart>
+						<AreaChart data={lineData} margin={{ top: 20, right: 20, left: 20, bottom: 20 }}>
+							<defs>
+								<linearGradient id="colorTime" x1="0" y1="0" x2="0" y2="1">
+									<stop offset="5%" stopColor="var(--secondary-color)" stopOpacity={0.5}/>
+									<stop offset="95%" stopColor="#FFFFFF" stopOpacity={0}/>
+								</linearGradient>
+							</defs>
+							<Area type="monotone" dataKey="time" stroke='var(--secondary-color)' fillOpacity={1} fill="url(#colorTime)" isAnimationActive={false} dot={true}/>
+						</AreaChart>
 					</ResponsiveContainer>
 				</div>
 				

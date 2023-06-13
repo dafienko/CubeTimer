@@ -17,7 +17,7 @@
 	font-family: 'Roboto', sans-serif;
 	font-weight: 700;
 	font-size: 50px;
-	color: rgb(37, 37, 37);
+	color: var(--secondary-color);
 	margin-top: 0px;
 	margin-bottom: 35px;
 }
@@ -33,26 +33,23 @@
 	display: block;
 	padding: 8px;
 	margin: 5px;
-	font-family: 'Roboto', sans-serif;
+}
+
+#login input:not([type='submit']) {
 	font-weight: 400;
 	font-size: 16px;
 	border-radius: 4px;
 	border: 1px solid;
-	border-color: #777777;
+	border-color: var(--secondary-color);
+	color: var(--secondary-color);
+}
+
+#login input[type='submit'] {
+	width: 50%;  
 }
 
 #login input:invalid {
 	border-color: #FF0000;
-}
-
-#login .submitButton {
-	width: 50%;  
-	color: white;
-	background-color: rgb(37, 37, 37);
-	font-weight: 700;
-	padding: 10px;
-	cursor: pointer;
-	margin-top: 30px;
 }
 
 #login .oauthButton {
@@ -72,7 +69,7 @@
 }
 
 #login p {
-	color: rgb(154, 154, 154);
+	color: var(--secondary-text-color);
 	margin: 40px;
 }
 

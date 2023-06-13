@@ -83,7 +83,7 @@ const Login = () => {
 					<Form id='loginForm' onSubmit={login} autoComplete='false' >
 						<input type='text' placeholder='Username' name='username'></input>
 						<input type='password' placeholder='Password' name='password'></input>
-						<input className='submitButton' type='submit' value={loading ? 'Loading' : 'Sign In'}></input>
+						<input className='default-button' type='submit' value={loading ? 'Loading' : 'Sign In'}></input>
 					</Form>
 					<p>or</p>
 					<button className='oauthButton' onClick={googleAuth}>
@@ -101,7 +101,7 @@ const Login = () => {
 						<input type='text' placeholder='Username' name='username'></input>
 						<input type='password' placeholder='Password' name='password'></input>
 						<input type='password' placeholder='Confirm Password' name='confirm-password' id='confirm-password'></input>
-						<input className='submitButton' type='submit' value={loading ? 'Loading' : 'Sign Up'}></input>
+						<input className='default-button' type='submit' value={loading ? 'Loading' : 'Sign Up'}></input>
 					</Form>
 					<p>or</p>
 					<button className='oauthButton' onClick={googleAuth}>

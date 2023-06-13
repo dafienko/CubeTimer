@@ -4,12 +4,13 @@ const useFetch = (resource, options) => {
 	options = options || {};
 
 	const [response, setResponse] = useState(null);
-	const [loading, setLoading] = useState(true);
+	const [loading, setLoading] = useState(resource && true);
 	const [error, setError] = useState(null);
 	
 	useEffect(() => {
+		setLoading(resource && true);
+
 		if (!resource) {
-			setResponse(null);
 			return;
 		}
 		
@@ -18,14 +19,15 @@ const useFetch = (resource, options) => {
 
 		fetch(resource, options).then((response) => {
 			setResponse(response);
+			setLoading(false);
 		}).catch((err) => {
 			setError(err);
-		}).finally(() => {
 			setLoading(false);
 		});
 
 		return () => {
 			setLoading(false);
+			setResponse(null);
 			setError(null);
 			controller.abort();
 		};

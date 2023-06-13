@@ -1,6 +1,6 @@
 :root {
 	--primary-color: white;
-	--secondary-color: rgb(255, 43, 43);
+	--secondary-color: rgb(162, 0, 255);
 	--primary-text-color: black;
 	--secondary-text-color: rgb(85, 85, 85);
 }
@@ -18,4 +18,16 @@ body {
 	position: absolute;
 	top: 50%;
 	transform: translateY(-50%);
+}
+
+.default-button {
+	border-width: 0px;
+	color: var(--primary-color);
+	background-color: var(--secondary-color);
+	font-weight: 700;
+	padding: 10px;
+	cursor: pointer;
+	font-size: 16px;
+	border-radius: 4px;
+	white-space: nowrap;	
 }
