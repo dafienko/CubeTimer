@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const DEFAULT_COLOR = '#000';
+const DEFAULT_COLOR = 'var(--timer-color)';
 const PRIMING_COLOR = '#f00';
 const PRIMED_COLOR = '#0f0';
 const STOPPED_COLOR = '#00f';

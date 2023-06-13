@@ -32,6 +32,34 @@ const userSchema = new Schema({
 		scramble: String,
 	}],
 
+	colorTheme: {
+		_id: false,
+		primary: {
+			type: String,
+			default: '#FFFFFF',
+		},
+		secondary: {
+			type: String,
+			default: '#FF0000',
+		},
+		tertiary: {
+			type: String,
+			default: '#DD0000',
+		},
+		quaternary: {
+			type: String,
+			default: '#AA0000',
+		},
+		timer: {
+			type: String,
+			default: '#000000',
+		},
+		ao: {
+			type: String,
+			default: '#202020',
+		},
+	},
+
 	provider: String,
 	providerId: String,
 

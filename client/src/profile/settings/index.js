@@ -6,8 +6,6 @@ import Theme from './Theme';
 import Password from './Password';
 
 const Settings = () => {
-	const userdata = useContext(UserContext);
-
 	return ( 
 		<div id="settings">
 			<h1>Settings</h1>

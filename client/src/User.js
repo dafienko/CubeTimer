@@ -17,27 +17,56 @@ const UserProvider = ({children}) => {
 	const {response: validSessionResponse, loading: validSessionLoading} = useFetch(validSessionURL, {credentials: 'include'});
 	const {data: userdata, loading: userdataLoading} = useFetchJSON(meURL, {credentials: 'include'});
 
-
 	useEffect(() => {
 		if (cookies['connect.sid']) {
 			setValidSessionURL(VALID_SESSION_URL);
 		} else {
 			setValidSessionURL(null);
 		}
-	}, [cookies]);
+	});
 
 	useEffect(() => {
 		if (validSessionResponse) {
-			if (validSessionResponse.ok) {
-				setMeURL(ME_URL);
-			} else {
-				removeCookie('connect.sid');
-				setMeURL(null);
+			if (!userdata) {
+				if (validSessionResponse.ok) {
+					setMeURL(ME_URL);
+				} else {
+					removeCookie('connect.sid');
+					setMeURL(null);
+				}
 			}
 		} else {
 			setMeURL(null);
 		}
 	}, [validSessionResponse]);
+
+	useEffect(() => {
+		if (userdata && userdata.colorTheme) {
+			const colorTheme = userdata.colorTheme;
+
+			function setVar(varname, val) {
+				document.documentElement.style.setProperty(varname, val);
+			}
+
+			setVar('--primary-color', colorTheme.primary);
+			setVar('--saved-primary-color', colorTheme.primary);
+
+			setVar('--secondary-color', colorTheme.secondary);
+			setVar('--saved-secondary-color', colorTheme.secondary);
+
+			setVar('--tertiary-color', colorTheme.tertiary);
+			setVar('--saved-tertiary-color', colorTheme.tertiary);
+
+			setVar('--quaternary-color', colorTheme.quaternary);
+			setVar('--saved-quaternary-color', colorTheme.quaternary);
+
+			setVar('--timer-color', colorTheme.timer);
+			setVar('--saved-timer-color', colorTheme.timer);
+
+			setVar('--ao-color', colorTheme.ao);
+			setVar('--saved-ao-color', colorTheme.ao);
+		}
+	}, [userdata]);
 
 	return (
 		<UserContext.Provider value={userdata}> 

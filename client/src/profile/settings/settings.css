@@ -3,37 +3,61 @@
 	
 }
 
-#settings #cards {
-	display: flex;
-	flex-wrap: wrap;
-	
-}
-
 .settings-card {
 	border-radius: 10px;
 	box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);
 	border-width: 0;
-	margin: 20px;
-	padding: 15px;
+	
+	padding: 25px;
+	max-width: 500px;
+	margin: auto;
+	margin-top: 40px;
 }
 
 .settings-card h2 {
-	color: var(--secondary-color);
+	color: var(--tertiary-color);
 	margin: 0;
 	font-size: 28px;
 }
 
-#settings #color {
-
-}
-
-#settings #password {
-
+.settings-card h3 {
+	color: var(--quaternary-color);
+	text-align: left;
+	font-size: 20px;
+	width: 100%;
 }
 
 .settings-card .settings-content {
 	margin: 10px;
 	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#settings table {
+	width: 100%;
+	max-width: 400px;
+}
+
+#settings td {
+	padding: 5px;
+	white-space: nowrap;
+	color: var(--ao-color);
+}
+
+#settings tr td:first-child {
+	padding-right: 40px;
+}
+
+#settings tr td:nth-child(2) {
+	text-align: right;
+}
+
+#settings #theme .default-button {
+	margin-top: 20px;
+	margin-right: 20px;
+	margin-left: 20px;
 }
 
 #settings #password form {

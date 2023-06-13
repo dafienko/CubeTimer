@@ -1,13 +1,16 @@
 :root {
 	--primary-color: white;
 	--secondary-color: rgb(162, 0, 255);
-	--primary-text-color: black;
-	--secondary-text-color: rgb(85, 85, 85);
+	--tertiary-color: rgb(162, 0, 255);
+	--quaternary-color: rgb(162, 0, 255);
+	--timer-color: rgb(0, 0, 0);
+	--ao-color: rgb(46, 46, 46);
 }
 
 body {
 	margin: 0px;
 	font-family: 'Roboto', sans-serif;
+	background-color: var(--primary-color);
 }
 
 #loading {
@@ -30,4 +33,14 @@ body {
 	font-size: 16px;
 	border-radius: 4px;
 	white-space: nowrap;	
+	box-shadow: 0px 0px 0px rgba(0, 0, 0, .3);
+}
+
+.default-button:hover {
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, .3);
+}
+
+.default-button:active {
+	filter: brightness(90%);
+	transform: translateY(2%);
 }

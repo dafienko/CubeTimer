@@ -8,10 +8,11 @@ const Password = () => {
 
 	return ( 
 		<div className='settings-card' id='password'>
-			<h2>Change Passsword</h2>
+			<h2>Change Password</h2>
 			<Form className='settings-content' id='signupForm' autoComplete='false'>
-				<input type='password' placeholder='Password' name='password'></input>
-				<input type='password' placeholder='Confirm Password' name='confirm-password' id='confirm-password'></input>
+				<input type='password' placeholder='Current Password' name='password'></input>
+				<input type='password' placeholder='New Password' name='password'></input>
+				<input type='password' placeholder='Confirm New Password' name='confirm-password' id='confirm-password'></input>
 				<input className='default-button' type='submit' value='Change Password'></input>
 			</Form>
 		</div>

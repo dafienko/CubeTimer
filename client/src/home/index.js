@@ -1,6 +1,6 @@
 import {useState, useEffect, useContext} from 'react';
 import LoginProtectedRoute from "../LoginProtectedRoute";
-import {LineChart, Line, ResponsiveContainer, Area, AreaChart} from 'recharts';
+import {ResponsiveContainer, Area, AreaChart} from 'recharts';
 
 import useFetchJSON from '../hooks/useFetchJSON';
 import Logout from '../Logout';
