@@ -30,6 +30,7 @@ const userSchema = new Schema({
 		_id: false,
 		time: Number,
 		scramble: String,
+		add2: Boolean,
 	}],
 
 	colorTheme: {

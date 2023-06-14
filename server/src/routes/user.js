@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const { verifyPassword, hashPassword } = require('./passwords');
 
 const checkUser = (req, res, next) => {
 	if (!req.user) {
@@ -31,7 +32,7 @@ module.exports = function(app) {
 		});
 	});
 
-	app.get('/solves/:id', checkUser, userCanAccess, async (req, res) => {
+	app.get('/user/:id/solves', checkUser, userCanAccess, async (req, res) => {
 		const user = await User.findOne({_id: req.params.id});
 
 		const num = req.query.num || req.user.solves.length;
@@ -40,13 +41,46 @@ module.exports = function(app) {
 		res.json(user.solves.slice(first, last));
 	});
 
-	app.post('/solves/:id', checkUser, userCanAccess, async (req, res) => {
+	app.post('/user/:id/solves', checkUser, userCanAccess, async (req, res) => {
 		await User.updateOne(
 			{
 				_id: req.params.id
 			}, 
 			{
 				$push: { solves: {time: req.body.time, scramble: req.body.scramble} } 
+			}
+		);
+
+		res.send();
+	});
+
+	app.delete('/user/:id/solves', checkUser, userCanAccess, async (req, res) => {
+		if (!req.body.scramble) {
+			return res.status(400).send();
+		}
+
+		await User.updateOne(
+			{
+				_id: req.params.id
+			}, 
+			{
+				$pull: {solves: {scramble: req.body.scramble}}
+			}
+		);
+
+		res.send();
+	});
+
+	app.put('/user/:id/solves', checkUser, userCanAccess, async (req, res) => {
+		console.log(req.body.scramble, req.body.add2)
+
+		await User.updateOne(
+			{
+				_id: req.params.id,
+				'solves.scramble': req.body.scramble
+			}, 
+			{
+				$set: {'solves.$.add2': req.body.add2}
 			}
 		);
 
@@ -60,8 +94,6 @@ module.exports = function(app) {
 			return match ? match[0] : undefined;
 		}
 
-		console.log(req.body);
-
 		const newColorTheme = {};
 		for (const colorName of ['primary', 'secondary', 'tertiary', 'quaternary', 'timer', 'ao']) {
 			const col = validateColor(colorName);
@@ -70,16 +102,34 @@ module.exports = function(app) {
 			}
 		}
 
-		console.log(newColorTheme);
-
 		await User.updateOne(
 			{
-				_id: req.params.id
+				_id: req.params.id,
 			}, 
 			{
-				colorTheme: newColorTheme
+				colorTheme: newColorTheme,
 			}
 		);
+
+		res.send();
+	});
+
+	app.put('/user/:id/password', checkUser, userCanAccess, async (req, res) => {
+		const user = await User.findOne({_id: req.params.id});
+		if (user.provider) {
+			return res.status(400).send();
+		}
+
+		if (!verifyPassword(req.body.currentPassword, user.salt, user.password)) {
+			return res.status(400).send();
+		}
+
+		const {password, salt} = hashPassword(req.body.newPassword);
+
+		await User.updateOne(
+			{_id: req.params.id},
+			{password, salt}
+		)
 
 		res.send();
 	});

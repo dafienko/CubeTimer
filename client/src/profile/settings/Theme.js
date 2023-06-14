@@ -17,16 +17,20 @@ const Theme = () => {
 	}
 
 	const onColorChange = (input) => {
+		const newTheme = {...currentTheme};
+
 		const varname = ({
-			background: '--primary-color',
-			accent1: '--secondary-color',
-			accent2: '--tertiary-color',
-			accent3: '--quaternary-color',
-			'timer-color': '--timer-color',
-			'ao-color': '--ao-color',
+			background: 'primary',
+			accent1: 'secondary',
+			accent2: 'tertiary',
+			accent3: 'quaternary',
+			'timer-color': 'timer',
+			'ao-color': 'ao',
 		})[input.target.id];
 
-		setVar(varname, input.target.value);
+		newTheme[varname] = input.target.value;
+
+		setCurrentTheme(newTheme);
 	}
 
 	const getTheme = () => {

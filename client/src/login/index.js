@@ -28,7 +28,6 @@ const Login = () => {
 
 		fetch(url, {
 			method: "POST",
-			redirect: "follow",
 			headers: {
 				'content-type': 'application/json'
 			},

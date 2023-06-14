@@ -3,10 +3,10 @@ const LocalStrategy = require('passport-local').Strategy;
 const crypto = require('crypto');
 const pbkdf2 = require('pbkdf2');
 const User = require('../../models/User');
+const { hashPassword, verifyPassword } = require('../passwords');
 
 passport.use(new LocalStrategy(
 	async function(username, password, done) {
-		console.log(username, password);
 		const user = await User.findOne({username});
 		if (!user) {
 			return done(null);
@@ -20,15 +20,8 @@ passport.use(new LocalStrategy(
 	}
 ));
 
-function verifyPassword(password, salt, hash) {
-	const key = pbkdf2.pbkdf2Sync(password, salt, 1, 32, 'sha512');
-
-	return key.toString('hex') === hash;
-}
-
 const checkAuth = passport.authenticate('local', { 
 	session: true,
-	failureRedirect : 'http://localhost:3000/login'
 });
 
 module.exports = function(app) {
@@ -46,8 +39,7 @@ module.exports = function(app) {
 			return res.status(400).send("Username taken");
 		}
 		
-		const salt = crypto.randomBytes(32).toString('hex');
-		const password = pbkdf2.pbkdf2Sync(plaintextPassword, salt, 1, 32, 'sha512').toString('hex');
+		const {salt, password} = hashPassword(plaintextPassword);
 
 		await new User({username, password, name: username, salt}).save();
 		

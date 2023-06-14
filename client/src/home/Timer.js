@@ -34,8 +34,8 @@ const Timer = ({onTimerStop, ao5, ao12}) => {
 		setColor(DEFAULT_COLOR);
 	}
 
-	function stopTimer() {
-		onTimerStop(getTime());
+	function stopTimer(cancelSolve) {
+		onTimerStop(cancelSolve ? null : getTime());
 
 		setTimerRunning(false);
 		setPrimed(false);
@@ -68,14 +68,16 @@ const Timer = ({onTimerStop, ao5, ao12}) => {
 		setColor(DEFAULT_COLOR);
 	}
 	
-	function timerPress() {
+	function timerPress(key) {
 		if (pressed) { return; }
 		setPressed(true);
 
 		if (timerRunning) {
-			stopTimer();
+			stopTimer(key == 'Escape');
 		} else {
-			startPriming();
+			if (key == ' ') {
+				startPriming();
+			}
 		}
 	}
 
@@ -92,15 +94,11 @@ const Timer = ({onTimerStop, ao5, ao12}) => {
 
 	useEffect(() => {
 		const handleKeyDown = (e) => {
-			if (e.key === ' ') {
-				timerPress();
-			}
+			timerPress(e.key);
 		}
 	
 		const handleKeyUp = (e) => {
-			if (e.key === ' ') {
-				timerRelease();
-			}
+			timerRelease();
 		}
 		
 		let timeout;

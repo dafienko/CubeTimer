@@ -40,6 +40,21 @@
 	max-width: 400px;
 }
 
+#settings input[type='color'] {
+	width: 40px;
+	height: 40px;
+	border-width: 0px;
+	padding: 0px;
+	margin: 0;
+	background-color: var(--primary-color);
+}
+
+#settings select {
+	padding: 5px;
+	color: var(--ao-color);
+	background-color: var(--primary-color);
+}
+
 #settings td {
 	padding: 5px;
 	white-space: nowrap;
