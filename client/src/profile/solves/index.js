@@ -8,13 +8,13 @@ import './solves.css';
 const Solves = () => {
 	const userdata = useContext(UserContext);
 
-	const {data: solvedata, solvedataLoading, solvedataError} = useFetchJSON(`http://localhost:9000/user/${userdata.id}/solves`, {credentials: 'include'});
+	const {data: solvedata} = useFetchJSON(`http://localhost:9000/user/${userdata.id}/solves`, {credentials: 'include'});
 	const [cachedData, setCachedData] = useState([]);
 	const [finalData, setFinalData] = useState([]);
-	const [mean, setMean] = useState(0);
-	const [bestSingle, setBestSingle] = useState(0);
-	const [bestAO5, setBestAO5] = useState(0);
-	const [bestAO12, setBestAO12] = useState(0);
+	const [mean, setMean] = useState(null);
+	const [bestSingle, setBestSingle] = useState(null);
+	const [bestAO5, setBestAO5] = useState(null);
+	const [bestAO12, setBestAO12] = useState(null);
 
 	useEffect(() => {
 		if (solvedata) {
@@ -115,11 +115,11 @@ const Solves = () => {
 					<tbody>
 						<tr>
 							<td><b>Mean: </b></td>
-							<td>{mean}</td>
+							<td>{mean || '-'}</td>
 						</tr>
 						<tr>
 							<td><b>Best Single: </b></td>
-							<td>{bestSingle}</td>
+							<td>{bestSingle || '-'}</td>
 						</tr>
 						<tr>
 							<td><b>Best AO5: </b></td>

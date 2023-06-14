@@ -14,7 +14,7 @@ passport.use(new GoogleStrategy(
 		const {provider, id: providerId, name: displayName, email} = profile;
 		let user = await User.findOne({provider, providerId}) || await new User(
 			{
-				displayName, 
+				name: displayName.givenName, 
 				email, 
 				provider, 
 				providerId
