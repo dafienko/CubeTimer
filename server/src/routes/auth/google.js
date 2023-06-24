@@ -33,7 +33,7 @@ module.exports = function(app) {
 
 		function (req, res) {
 			req.session.save(console.log);
-			res.redirect('http://localhost:3000/');
+			res.redirect(process.env.API_ORIGIN);
 		}	
 	);
 }
