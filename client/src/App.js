@@ -11,7 +11,6 @@ import Solves from './profile/solves';
 import { ColorThemeProvider } from './ColorTheme';
 
 function App() {
-	console.log(process.env);
   return (
     <CookiesProvider>
       <UserProvider>

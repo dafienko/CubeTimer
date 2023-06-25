@@ -19,7 +19,7 @@ const userCanAccess = (req, res, next) => {
 
 module.exports = function(app) {
 	app.get('/me', checkUser, (req, res) => {
-		res.redirect(`/user/${req.user._id}`);
+		res.redirect(`${process.env.API_ORIGIN}/user/${req.user._id}`);
 	});
 
 	app.get('/user/:id', checkUser, userCanAccess, async (req, res) => {
