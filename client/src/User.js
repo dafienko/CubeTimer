@@ -14,8 +14,13 @@ const UserProvider = ({children}) => {
 	const [validSessionURL, setValidSessionURL] = useState(cookies['connect.sid'] && VALID_SESSION_URL);
 	const [meURL, setMeURL] = useState(null);
 	
-	const {response: validSessionResponse, loading: validSessionLoading} = useFetch(validSessionURL, {credentials: 'include'});
-	const {data: userdata, loading: userdataLoading} = useFetchJSON(meURL, {credentials: 'include'});
+	const {response: validSessionResponse, loading: validSessionLoading} = useFetch(validSessionURL, {
+		credentials: 'include',
+		redirect: 'follow',
+	});
+	const {data: userdata, loading: userdataLoading} = useFetchJSON(meURL, {
+		redirect: 'follow', credentials: 'include'
+	});
 
 	useEffect(() => {
 		if (cookies['connect.sid']) {
