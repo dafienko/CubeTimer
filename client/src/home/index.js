@@ -31,7 +31,7 @@ const Home = ({}) => {
 	const SHOW_NUM_SOLVES = 50;
 	
 	const userdata = useContext(UserContext);
-	const {data: solvedata, solvedataLoading, solvedataError} = useFetchJSON(userdata && `http://localhost:9000/user/${userdata.id}/solves?num=${SHOW_NUM_SOLVES}`, {credentials: 'include'});
+	const {data: solvedata, solvedataLoading, solvedataError} = useFetchJSON(userdata && `${process.env.REACT_APP_API_ORIGIN}/user/${userdata.id}/solves?num=${SHOW_NUM_SOLVES}`, {credentials: 'include'});
 	const [lineData, setLineData] = useState([]);
 	
 	const [ao5, setAO5] = useState('-');
@@ -60,7 +60,7 @@ const Home = ({}) => {
 			newData.push({time: t});
 			setLineData(newData);
 
-			fetch(`http://localhost:9000/user/${userdata.id}/solves`, {
+			fetch(`${process.env.REACT_APP_API_ORIGIN}/user/${userdata.id}/solves`, {
 				method: 'POST',
 				credentials: 'include',
 				headers: {

@@ -6,7 +6,7 @@ passport.use(new GitHubStrategy(
 	{
 		clientID: process.env.GITHUB_CLIENT_ID,
 		clientSecret: process.env.GITHUB_CLIENT_SECRET,
-		callbackURL: "http://localhost:9000/verify/github"
+		callbackURL: `${process.env.API_ORIGIN}/verify/github`
 	},
 
 	async function (accessToken, refreshToken, profile, done) {
@@ -32,7 +32,7 @@ module.exports = function(app) {
 
 		function (req, res) {
 			req.session.save(console.log);
-			res.redirect(process.env.API_ORIGIN);
+			res.redirect(`${process.env.REACT_ORIGIN}/`);
 		}
 	);
 }

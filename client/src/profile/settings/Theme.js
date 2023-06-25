@@ -134,7 +134,7 @@ const Theme = () => {
 		setVar('--saved-timer-color', currentTheme.timer);
 		setVar('--saved-ao-color', currentTheme.ao);
 
-		fetch(`http://localhost:9000/user/${userdata.id}/theme`, {
+		fetch(`${process.env.REACT_APP_API_ORIGIN}/user/${userdata.id}/theme`, {
 			credentials: 'include',
 			method: 'POST',
 			headers: {

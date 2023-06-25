@@ -8,7 +8,7 @@ import './solves.css';
 const Solves = () => {
 	const userdata = useContext(UserContext);
 
-	const {data: solvedata} = useFetchJSON(`http://localhost:9000/user/${userdata.id}/solves`, {credentials: 'include'});
+	const {data: solvedata} = useFetchJSON(`${process.env.REACT_APP_API_ORIGIN}/user/${userdata.id}/solves`, {credentials: 'include'});
 	const [cachedData, setCachedData] = useState([]);
 	const [finalData, setFinalData] = useState([]);
 	const [mean, setMean] = useState(null);

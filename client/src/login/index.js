@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Form } from 'react-bootstrap'
 
 import LoginProtectedRoute from '../LoginProtectedRoute';
-import useFetch from '../hooks/useFetchJSON';
 import './login.css';
 
 
@@ -16,11 +15,11 @@ const Login = () => {
 	}, [passwordsMatch]);
 
 	const googleAuth = () => {
-		window.location.replace('http://localhost:9000/auth/google');
+		window.location.replace(`${process.env.REACT_APP_API_ORIGIN}/auth/google`);
 	}
 
 	const githubAuth = () => {
-		window.location.replace('http://localhost:9000/auth/github');
+		window.location.replace(`${process.env.REACT_APP_API_ORIGIN}/auth/github`);
 	}
 
 	const submitForm = (url, formdata) => {
@@ -50,7 +49,8 @@ const Login = () => {
 			return false;
 		}
 
-		submitForm('http://localhost:9000/auth/basic/login', new FormData(document.getElementById('loginForm')));
+		console.log(process.env.REACT_APP_API_ORIGIN)
+		submitForm(`${process.env.REACT_APP_API_ORIGIN}/auth/basic/login`, new FormData(document.getElementById('loginForm')));
 
 		return false;
 	}
@@ -61,7 +61,7 @@ const Login = () => {
 			return false;
 		}
 
-		submitForm('http://localhost:9000/auth/basic', new FormData(document.getElementById('signupForm')));	
+		submitForm(`${process.env.REACT_APP_API_ORIGIN}/auth/basic`, new FormData(document.getElementById('signupForm')));	
 
 		return false;
 	}

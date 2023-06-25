@@ -37,7 +37,7 @@ const SolveRow = ({i, solve, data, setData}) => {
 								setLoading(true);
 								
 								const setting = !solve.add2;
-								fetch(`http://localhost:9000/user/${userdata.id}/solves`, {
+								fetch(`${process.env.REACT_APP_API_ORIGIN}/user/${userdata.id}/solves`, {
 									method: "PUT",
 									headers: {
 										'content-type': 'application/json'
@@ -59,7 +59,7 @@ const SolveRow = ({i, solve, data, setData}) => {
 								}
 								setLoading(true);
 
-								fetch(`http://localhost:9000/user/${userdata.id}/solves`, {
+								fetch(`${process.env.REACT_APP_API_ORIGIN}/user/${userdata.id}/solves`, {
 									method: "DELETE",
 									headers: {
 										'content-type': 'application/json'

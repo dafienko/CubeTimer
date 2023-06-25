@@ -6,8 +6,8 @@ import useFetch from './hooks/useFetch';
 
 const UserContext = createContext(null);
 
-const VALID_SESSION_URL = 'http://localhost:9000/validSession';
-const ME_URL = 'http://localhost:9000/me';
+const VALID_SESSION_URL = `${process.env.REACT_APP_API_ORIGIN}/validSession`;
+const ME_URL = `${process.env.REACT_APP_API_ORIGIN}/me`;
 
 const UserProvider = ({children}) => {
 	const [cookies, , removeCookie] = useCookies(['connect.sid']);

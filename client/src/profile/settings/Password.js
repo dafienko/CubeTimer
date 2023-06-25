@@ -25,7 +25,7 @@ const Password = () => {
 		setLoading(true)
 
 		const formdata = new FormData(document.getElementById('change-password-form'));
-		fetch(`http://localhost:9000/user/${userdata.id}/password`, {
+		fetch(`${process.env.REACT_APP_API_ORIGIN}/user/${userdata.id}/password`, {
 			method: 'PUT',
 			headers: {
 				'content-type': 'application/json'

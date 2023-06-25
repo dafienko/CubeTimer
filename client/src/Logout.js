@@ -1,6 +1,6 @@
 const Logout = () => {	
 	const logout = () => {
-		fetch("http://localhost:9000/logout", {
+		fetch(`${process.env.REACT_APP_API_ORIGIN}/logout`, {
 			method: "GET",
 			redirect: "follow",
 			credentials: 'include'
