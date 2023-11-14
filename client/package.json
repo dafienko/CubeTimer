@@ -6,7 +6,7 @@
     "allowedHosts": [
       "localhost"
     ],
-    "proxy": "https://localhost:9000"
+    "proxy": "http://localhost:9000"
   },
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
